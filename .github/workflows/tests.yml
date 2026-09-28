@@ -1,0 +1,63 @@
+name: tests
+
+# Runs the test suite on Windows, macOS and Linux with every supported
+# Python version, plus once with the oldest supported library versions.
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: ${{ matrix.os }} / Python ${{ matrix.python }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python: ["3.10", "3.11", "3.12", "3.13", "3.14"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install
+        run: python -m pip install ".[test]"
+      - name: Command works
+        run: |
+          easyclassifier --version
+          python -m easyclassifier --version
+      - name: Tests
+        run: python -m pytest tests -q
+
+  oldest-dependencies:
+    name: Oldest supported libraries (Python 3.10)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install oldest versions
+        run: |
+          python -m pip install "scikit-learn==1.2.2" "pandas==1.5.3" \
+            "numpy<2" "matplotlib==3.6.3" "joblib==1.1.1" "openpyxl==3.0.10" pytest
+          python -m pip install --no-deps .
+      - name: Tests
+        run: python -m pytest tests -q
+
+  report-pdf:
+    name: PDF report builds with LaTeX
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install LaTeX
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends texlive-latex-recommended texlive-latex-extra lmodern
+      - name: Install
+        run: python -m pip install ".[test]"
+      - name: Tests (includes compiling a PDF report)
+        run: python -m pytest tests -q

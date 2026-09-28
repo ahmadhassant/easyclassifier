@@ -1,0 +1,26 @@
+{
+  "title": "EasyClassifier: Machine Learning without Programming",
+  "upload_type": "software",
+  "description": "A guided, menu-driven tool that lets researchers without programming experience build and evaluate classification models from a CSV or Excel file, with leakage-free preprocessing, an honest final score for the selected classifier, default parameters for reproducibility, and a plain-language report.",
+  "creators": [
+    {
+      "name": "Hassanat, Ahmad B. A."
+    }
+  ],
+  "license": "MIT",
+  "keywords": [
+    "machine learning",
+    "classification",
+    "no-code",
+    "reproducibility",
+    "k-nearest neighbours",
+    "Hassanat distance"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/ahmadhassant/easyclassifier",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    }
+  ]
+}

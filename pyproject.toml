@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=77.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "easyclassifier"
+version = "0.8.1"
+description = "Machine learning classification without programming - a guided, menu-driven wizard."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{ name = "Ahmad Hassanat", email = "ahmad.hassanat@gmail.com" }]
+keywords = ["machine learning", "classification", "wizard", "no-code", "scikit-learn"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "pandas>=1.5",
+    "numpy>=1.23",
+    "scikit-learn>=1.2",
+    "matplotlib>=3.6",
+    "joblib>=1.1",
+    "openpyxl>=3.0.10",
+]
+
+[project.optional-dependencies]
+full = ["xgboost>=1.5", "lightgbm>=3.3"]
+test = ["pytest>=7"]
+
+[project.scripts]
+easyclassifier = "easyclassifier.__main__:main"
+
+[project.urls]
+Homepage = "https://github.com/ahmadhassant/easyclassifier"
+Documentation = "https://github.com/ahmadhassant/easyclassifier/blob/main/docs/USER_GUIDE.md"
+Issues = "https://github.com/ahmadhassant/easyclassifier/issues"
+Changelog = "https://github.com/ahmadhassant/easyclassifier/blob/main/CHANGELOG.md"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+easyclassifier = ["data/*.csv"]

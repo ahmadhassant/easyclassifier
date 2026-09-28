@@ -1,0 +1,41 @@
+cff-version: 1.2.0
+message: "If you use EasyClassifier in your research, please cite it as below."
+title: "EasyClassifier: Machine Learning without Programming"
+type: software
+authors:
+  - family-names: Hassanat
+    given-names: Ahmad B. A.
+    email: ahmad.hassanat@gmail.com
+version: 0.8.1
+date-released: 2026-09-28
+license: MIT
+repository-code: "https://github.com/ahmadhassant/easyclassifier"
+url: "https://github.com/ahmadhassant/easyclassifier"
+abstract: >-
+  EasyClassifier is a guided, menu-driven tool that lets researchers without
+  programming experience build and evaluate classification models from a CSV
+  or Excel file. It enforces leakage-free preprocessing, reports an honest
+  final score for the selected classifier (final test set or nested
+  cross-validation), checks the chosen class column, uses default parameters
+  for reproducibility, and writes a plain-language report with a
+  ready-to-adapt methods paragraph.
+keywords:
+  - machine learning
+  - classification
+  - no-code
+  - reproducibility
+  - k-nearest neighbours
+  - Hassanat distance
+references:
+  - type: article
+    title: "Dimensionality Invariant Similarity Measure"
+    authors:
+      - family-names: Hassanat
+        given-names: Ahmad B.
+    journal: "Journal of American Science"
+    volume: 10
+    issue: 8
+    year: 2014
+    identifiers:
+      - type: other
+        value: "arXiv:1409.0923"

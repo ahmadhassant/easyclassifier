@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+
+# EasyClassifier output (each run writes a new folder here)
+/Results/
+
+# Benchmark working files (the summary tables and figures are kept)
+benchmarks/results/cache/
+
+# LaTeX leftovers
+*.aux
+*.out
+*.toc
+report_latex_errors.log
+
+# Operating systems and editors
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
