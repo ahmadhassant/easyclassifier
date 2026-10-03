@@ -4,6 +4,7 @@
 [![PyPI](https://img.shields.io/pypi/v/easyclassifier.svg)](https://pypi.org/project/easyclassifier/)
 [![Python](https://img.shields.io/badge/python-3.10%E2%80%933.14-blue.svg)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/ahmadhassant/easyclassifier/blob/main/LICENSE)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23122902.svg)](https://doi.org/10.5281/zenodo.23122902)
 
 **Machine Learning without Programming.**
 
