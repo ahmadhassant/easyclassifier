@@ -14,8 +14,10 @@ GLOSSARY = {
               "items the model successfully found.",
     "f1": "F1 is a single score that balances precision and recall. It is "
           "high only when both are high.",
-    "specificity": "Specificity measures how many of the real negative items "
-                   "the model correctly labeled negative.",
+    "specificity": "Macro specificity: for each class, the share of items "
+                   "from the other classes that the model correctly did not "
+                   "put in that class, averaged over all classes. With two "
+                   "classes it equals balanced accuracy.",
     "sensitivity": "Sensitivity is another name for recall: how many real "
                    "positives the model found.",
     "mcc": "Matthews Correlation Coefficient summarises the whole confusion "

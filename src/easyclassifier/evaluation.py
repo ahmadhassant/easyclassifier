@@ -32,7 +32,7 @@ METRICS = {
     "precision": "Precision",
     "recall": "Recall",
     "f1": "F1",
-    "specificity": "Specificity",
+    "specificity": "Macro specificity",
     "balanced_accuracy": "Balanced Accuracy",
     "mcc": "MCC",
     "cohen_kappa": "Cohen Kappa",

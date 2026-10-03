@@ -4,6 +4,14 @@ All notable changes to EasyClassifier. Version numbers follow
 [semantic versioning](https://semver.org/); before 1.0 the interface may
 still change.
 
+## Unreleased
+
+* The measure reported as "Specificity" is now named "Macro specificity",
+  and its explanation is corrected: it is the one-versus-rest specificity
+  averaged over all classes (with two classes it equals balanced
+  accuracy), not the specificity of a single negative class. The numbers
+  are unchanged.
+
 ## 0.8.1 – 2026-09-28
 
 Changes based on the benchmarks (`benchmarks/`):
