@@ -3,7 +3,7 @@
 [![tests](https://github.com/ahmadhassant/easyclassifier/actions/workflows/tests.yml/badge.svg)](https://github.com/ahmadhassant/easyclassifier/actions/workflows/tests.yml)
 [![PyPI](https://img.shields.io/pypi/v/easyclassifier.svg)](https://pypi.org/project/easyclassifier/)
 [![Python](https://img.shields.io/badge/python-3.10%E2%80%933.14-blue.svg)](https://www.python.org/)
-[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/ahmadhassant/easyclassifier/blob/main/LICENSE)
 
 **Machine Learning without Programming.**
 
@@ -13,7 +13,7 @@ no Python code, no scripting, and no machine learning jargon required
 (unless you want it).
 
 **New to Python or the terminal? Read the step-by-step
-[User Guide](docs/USER_GUIDE.md).** It covers installing Python, installing
+[User Guide](https://github.com/ahmadhassant/easyclassifier/blob/main/docs/USER_GUIDE.md).** It covers installing Python, installing
 EasyClassifier, running it, what each question means, and what the results
 files contain.
 
@@ -50,7 +50,7 @@ paragraph), `report.tex`, score tables (`summary.csv`, `results.xlsx`),
 predictions, column importance, figures, the trained model, `citations.txt`
 and a full `log.txt`. The PDF is made when a LaTeX program is installed
 (MiKTeX, MacTeX, TeX Live); otherwise `report.tex` can be opened in Overleaf.
-An example is in [`examples/iris/report.pdf`](examples/iris/report.pdf).
+An example is in [`examples/iris/report.pdf`](https://github.com/ahmadhassant/easyclassifier/blob/main/examples/iris/report.pdf).
 
 **Optional extras:** `pip install "easyclassifier[full]"` adds XGBoost and
 LightGBM.
@@ -193,7 +193,7 @@ shown on screen and saved to `citations.txt`:
 
 On eleven public datasets from medicine, botany, chemistry, computer vision,
 sociology, political science and psychology plus a random-label control
-([details](benchmarks/README.md), [results](benchmarks/results/RESULTS.md)):
+([details](https://github.com/ahmadhassant/easyclassifier/blob/main/benchmarks/README.md), [results](https://github.com/ahmadhassant/easyclassifier/blob/main/benchmarks/results/RESULTS.md)):
 
 * The common practice of reporting the best cross-validation score after
   fitting preprocessing on all rows was optimistic by 2.9 percentage points
@@ -224,8 +224,8 @@ run also writes the exact references to `citations.txt`.
 ## Contributing
 
 Problem reports and suggestions are very welcome – see
-[CONTRIBUTING.md](CONTRIBUTING.md).
+[CONTRIBUTING.md](https://github.com/ahmadhassant/easyclassifier/blob/main/CONTRIBUTING.md).
 
 ## License
 
-MIT – see [LICENSE](LICENSE).
+MIT – see [LICENSE](https://github.com/ahmadhassant/easyclassifier/blob/main/LICENSE).
