@@ -158,12 +158,6 @@ Installation downloads EasyClassifier and the scientific libraries it uses
 (pandas, NumPy, scikit-learn, matplotlib, openpyxl). This takes one to a few
 minutes.
 
-> **Before the first public release** (installing from a file you were
-> given): open the terminal in the folder containing the file
-> `easyclassifier-0.8.1-py3-none-any.whl` and type
-> `py -m pip install easyclassifier-0.8.1-py3-none-any.whl`
-> (macOS: `python3 -m pip install …`).
-
 ---
 
 ## 4. Try it with the demo (2 minutes)
@@ -448,3 +442,5 @@ neighbours with the Hassanat distance was used –
 
 > Hassanat, A. B. (2014). Dimensionality Invariant Similarity Measure.
 > *Journal of American Science*, 10(8). arXiv:1409.0923.
+
+To cite the software itself: Hassanat, A. B. A. (2026). EasyClassifier (version 0.8.1). Zenodo. https://doi.org/10.5281/zenodo.23122902

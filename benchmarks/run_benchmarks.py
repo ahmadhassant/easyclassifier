@@ -18,7 +18,7 @@ Benchmark 1 - Are the reported scores honest?
 Benchmark 2 - KNN distances.
     Repeated stratified 5-fold cross-validation (2 repeats) of KNN (k = 5)
     with each distance offered by EasyClassifier, using the tool's own
-    preprocessing (the Hassanat distance on unscaled data, the others on
+    preprocessing (the Hassanat distance on data scaled to 0-1, the others on
     standardised data, as EasyClassifier does automatically), plus Euclidean
     on unscaled data for reference.
 

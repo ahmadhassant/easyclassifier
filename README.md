@@ -219,7 +219,7 @@ can see the whole workflow immediately.
 ## Citing
 
 If you use EasyClassifier in published work, please cite it (GitHub's
-"Cite this repository" button uses [`CITATION.cff`](CITATION.cff)); each
+"Cite this repository" button uses [`CITATION.cff`](https://github.com/ahmadhassant/easyclassifier/blob/main/CITATION.cff)); each
 run also writes the exact references to `citations.txt`.
 
 ## Contributing
