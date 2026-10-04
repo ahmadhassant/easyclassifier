@@ -26,7 +26,7 @@ takes you from an empty computer to your first report.
 | | |
 |---|---|
 | **Computer** | Windows 10 or 11, macOS, or Linux |
-| **Python** | Version **3.10 or newer**. 3.12, 3.13 or 3.14 are recommended (3.10 stops receiving security updates at the end of October 2026). |
+| **Python** | Version **3.10 or newer**. 3.12, 3.13 or 3.14 are recommended (3.10 stops receiving security updates at the end of October 2026). https://www.python.org/downloads/|
 | **Disk space** | About 400 MB for Python's scientific libraries |
 | **Internet** | Only while installing |
 | **Your data** | A `.csv` file or an Excel `.xlsx` file (see [section 5](#5-prepare-your-own-data)) |
