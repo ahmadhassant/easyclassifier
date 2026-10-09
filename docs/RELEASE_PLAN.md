@@ -27,7 +27,8 @@ portable application.
 
 ### Not in release 1 (next release)
 
-* Computer vision (images).
+* Computer vision (images): a separate project, EasyVision, that plugs into
+  the desktop as one more task; see `docs/EASYVISION_DESIGN.md`.
 * Multichannel signals (for example 12-lead ECG, multi-electrode EEG) and
   long recordings cut into windows.
 * Using the UCR archive's own TRAIN/TEST split as the final test.
