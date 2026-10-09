@@ -1,0 +1,10 @@
+{
+  "protocol_version": 1,
+  "id": "classification",
+  "title": "Classification",
+  "description": "Predict a category from a CSV or Excel spreadsheet.",
+  "input_kind": "tabular",
+  "adapter": "adapters.classification:ClassificationModule",
+  "package": "easyclassifier",
+  "package_version": "0.8.1"
+}

@@ -26,3 +26,11 @@ Thumbs.db
 desktop.ini
 .vscode/
 .idea/
+
+# Desktop application: build output, portable release, test runs
+desktop/**/bin/
+desktop/**/obj/
+desktop/release/
+desktop/test-results/
+python-path.txt
+plot-cache/

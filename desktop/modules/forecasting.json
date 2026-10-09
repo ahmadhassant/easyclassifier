@@ -1,0 +1,10 @@
+{
+  "protocol_version": 1,
+  "id": "forecasting",
+  "title": "Time-series forecasting",
+  "description": "Forecast the next values of a series measured over time, such as monthly sales or daily admissions, from a CSV or Excel spreadsheet.",
+  "input_kind": "tabular",
+  "adapter": "adapters.forecasting:ForecastingModule",
+  "package": "easyresearch",
+  "package_version": "0.1.0"
+}

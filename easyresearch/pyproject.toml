@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=77.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "easyresearch"
+version = "0.1.0"
+description = "Machine learning without programming: regression, time-series forecasting and signal classification cores, with honest evaluation and plain-language reports."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{ name = "Ahmad Hassanat", email = "ahmad.hassanat@gmail.com" }]
+keywords = ["machine learning", "regression", "forecasting", "time series", "no-code"]
+dependencies = [
+    "easyclassifier==0.8.1",
+    "pandas>=1.5",
+    "numpy>=1.23",
+    "scikit-learn>=1.2",
+    "matplotlib>=3.6",
+    "joblib>=1.1",
+    "openpyxl>=3.0.10",
+    "statsmodels>=0.14",
+    "torch>=2.2",
+]
+
+[project.optional-dependencies]
+full = ["xgboost>=2", "lightgbm>=4"]
+test = ["pytest>=7"]
+
+[project.scripts]
+easyresearch = "easyresearch.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

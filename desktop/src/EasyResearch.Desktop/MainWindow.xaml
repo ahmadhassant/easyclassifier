@@ -1,0 +1,119 @@
+<Window x:Class="EasyResearch.Desktop.MainWindow"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ Title="EasyResearch Desktop" Width="1250" Height="860" MinWidth="1020" MinHeight="720"
+ FontFamily="Segoe UI" FontSize="14" Background="{StaticResource Canvas}" WindowStartupLocation="CenterScreen">
+ <Window.Resources>
+  <BooleanToVisibilityConverter x:Key="Visible"/>
+  <Style x:Key="Card" TargetType="Border"><Setter Property="Background" Value="White"/><Setter Property="CornerRadius" Value="7"/><Setter Property="Padding" Value="20"/><Setter Property="Margin" Value="0,0,0,14"/><Setter Property="BorderBrush" Value="#E1E8EC"/><Setter Property="BorderThickness" Value="1"/></Style>
+  <Style x:Key="CardTitle" TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}"><Setter Property="FontSize" Value="18"/><Setter Property="FontWeight" Value="SemiBold"/><Setter Property="Margin" Value="0,0,0,10"/></Style>
+  <Style x:Key="Hint" TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}"><Setter Property="Foreground" Value="{StaticResource Muted}"/><Setter Property="FontSize" Value="12"/></Style>
+  <Style x:Key="SidebarItem" TargetType="ListBoxItem">
+   <Setter Property="IsEnabled" Value="{Binding IsAvailable}"/>
+   <Setter Property="ToolTipService.ShowOnDisabled" Value="True"/>
+   <Setter Property="ToolTip" Value="{Binding Reason}"/>
+   <Setter Property="Margin" Value="0,0,0,4"/>
+   <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ListBoxItem">
+    <Border x:Name="Bd" Background="Transparent" CornerRadius="6" Padding="12,9" BorderThickness="3,0,0,0" BorderBrush="Transparent"><ContentPresenter/></Border>
+    <ControlTemplate.Triggers>
+     <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Bd" Property="Background" Value="#22404C"/></Trigger>
+     <Trigger Property="IsSelected" Value="True"><Setter TargetName="Bd" Property="Background" Value="#2C5260"/><Setter TargetName="Bd" Property="BorderBrush" Value="#7FD0D6"/></Trigger>
+     <Trigger Property="IsEnabled" Value="False"><Setter TargetName="Bd" Property="Opacity" Value="0.5"/></Trigger>
+    </ControlTemplate.Triggers>
+   </ControlTemplate></Setter.Value></Setter>
+  </Style>
+  <Style x:Key="TargetItem" TargetType="ComboBoxItem">
+   <Setter Property="IsEnabled" Value="{Binding Suitable}"/>
+   <Setter Property="ToolTip" Value="{Binding Note}"/>
+   <Setter Property="ToolTipService.ShowOnDisabled" Value="True"/>
+  </Style>
+ </Window.Resources>
+ <Grid Background="{StaticResource Canvas}">
+  <Grid.ColumnDefinitions><ColumnDefinition Width="235"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+  <Border Background="#172B3A" Padding="18,30">
+   <Grid><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+    <StackPanel Margin="6,0,0,0"><TextBlock Text="EasyResearch" Foreground="White" FontSize="25" FontWeight="SemiBold"/><TextBlock Text="DESKTOP" Foreground="#A6C5CC" FontSize="11" Margin="0,5,0,30"/><TextBlock Text="YOUR WORKSPACE" Foreground="#A6C5CC" FontSize="11" Margin="0,0,0,10"/></StackPanel>
+    <ListBox Grid.Row="1" ItemsSource="{Binding Workspaces}" SelectedItem="{Binding SelectedWorkspace}" IsEnabled="{Binding Idle}" Background="Transparent" BorderThickness="0" Padding="0"
+             ItemContainerStyle="{StaticResource SidebarItem}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+     <ListBox.ItemTemplate><DataTemplate><StackPanel>
+      <TextBlock Text="{Binding Title}" Foreground="White" FontWeight="SemiBold"/>
+      <TextBlock Text="{Binding Subtitle}" Foreground="#A6C5CC" FontSize="11.5" Margin="0,2,0,0"/>
+     </StackPanel></DataTemplate></ListBox.ItemTemplate>
+    </ListBox>
+    <StackPanel Grid.Row="3" Margin="6,0,0,0"><TextBlock Text="Research without programming" Foreground="White" FontWeight="SemiBold"/><TextBlock Text="Guided choices. Clear results." Foreground="#A6C5CC" FontSize="12" Margin="0,6,0,0"/><TextBlock Text="Preview 0.3 · EasyResearch 0.1 · EasyClassifier 0.8.1" Foreground="#A6C5CC" FontSize="11" Margin="0,20,0,0"/></StackPanel>
+   </Grid>
+  </Border>
+  <Grid Grid.Column="1" Margin="28,24,28,20">
+   <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+   <StackPanel Margin="0,0,0,14"><TextBlock Text="{Binding SelectedModule.Title}" FontSize="29" FontWeight="SemiBold"/><TextBlock Text="{Binding ModuleDescription}" Foreground="{StaticResource Muted}" Margin="0,5,0,0"/></StackPanel>
+   <TabControl x:Name="MainTabs" Grid.Row="1" Background="Transparent" BorderThickness="0" Padding="0">
+    <TabItem Header="Set up analysis">
+     <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="0,16,8,0">
+      <StackPanel>
+       <Border Style="{StaticResource Card}">
+        <StackPanel><TextBlock Text="1  Choose your data" Style="{StaticResource CardTitle}" Margin="0,0,0,12"/>
+         <DockPanel><Button Content="Browse…" DockPanel.Dock="Right" Click="Browse_Click" IsEnabled="{Binding Idle}"/><Button Content="Example files…" DockPanel.Dock="Right" Click="Examples_Click" IsEnabled="{Binding Idle}" ToolTip="Ready-made example files for every task, to see how your own data should look"/><Button Content="{Binding Labels.DemoButton}" DockPanel.Dock="Right" Click="Demo_Click" IsEnabled="{Binding Idle}"/><TextBox Text="{Binding DatasetDisplay, Mode=OneWay}" IsReadOnly="True" Margin="0,0,10,0"/></DockPanel>
+         <TextBlock Text="{Binding DataSummary}" Foreground="{StaticResource Muted}" Margin="0,10,0,10"/>
+         <Border Background="#EEF6F7" CornerRadius="5" Padding="14,10" Margin="0,0,0,10" Visibility="{Binding HasAdvice, Converter={StaticResource Visible}}"><StackPanel><TextBlock Text="What we noticed" FontWeight="SemiBold" Margin="0,0,0,4"/><TextBlock Text="{Binding AdviceText}" LineHeight="20"/></StackPanel></Border>
+         <Expander Header="Preview the first eight rows"><DataGrid ItemsSource="{Binding Preview}" IsReadOnly="True" AutoGenerateColumns="True" AutoGeneratingColumn="Table_AutoGeneratingColumn" MaxHeight="195" FontSize="12" Margin="0,8,0,0"/></Expander>
+        </StackPanel>
+       </Border>
+       <Border Style="{StaticResource Card}">
+        <StackPanel><TextBlock Text="{Binding Labels.TargetTitle, StringFormat='2  {0}'}" Style="{StaticResource CardTitle}"/>
+         <ComboBox ItemsSource="{Binding Columns}" SelectedItem="{Binding Target}" DisplayMemberPath="Description" IsEnabled="{Binding Idle}" ItemContainerStyle="{StaticResource TargetItem}"/>
+         <TextBlock Text="{Binding TargetNote}" Foreground="#9A5B00" FontSize="12.5" Margin="0,8,0,0"/>
+         <TextBlock Text="{Binding Labels.TargetHint}" Style="{StaticResource Hint}" Margin="0,6,0,0"/>
+         <ItemsControl ItemsSource="{Binding Parameters}" IsEnabled="{Binding Idle}"><ItemsControl.ItemTemplate><DataTemplate><StackPanel Margin="0,16,0,0"><TextBlock Text="{Binding Label}" FontWeight="SemiBold" Margin="0,0,0,6"/><ComboBox ItemsSource="{Binding Options}" SelectedItem="{Binding Selected}" DisplayMemberPath="Name"/><TextBlock Text="{Binding Hint}" Style="{StaticResource Hint}" Margin="0,6,0,0"/></StackPanel></DataTemplate></ItemsControl.ItemTemplate></ItemsControl>
+        </StackPanel>
+       </Border>
+       <Border Style="{StaticResource Card}">
+        <StackPanel><DockPanel Margin="0,0,0,12"><StackPanel Orientation="Horizontal" DockPanel.Dock="Right"><Button Content="Fast set" Click="Fast_Click" IsEnabled="{Binding Idle}" Padding="10,5"/><Button Content="Select all" Click="All_Click" IsEnabled="{Binding Idle}" Padding="10,5" Margin="0"/></StackPanel><TextBlock Text="{Binding Labels.ModelsTitle, StringFormat='3  {0}'}" Style="{StaticResource CardTitle}" Margin="0"/></DockPanel>
+         <ItemsControl ItemsSource="{Binding Models}" IsEnabled="{Binding Idle}"><ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel/></ItemsPanelTemplate></ItemsControl.ItemsPanel><ItemsControl.ItemTemplate><DataTemplate><CheckBox Width="285" IsChecked="{Binding Selected}" IsEnabled="{Binding Available}" ToolTip="{Binding Reason}" ToolTipService.ShowOnDisabled="True"><TextBlock Text="{Binding Name}"/></CheckBox></DataTemplate></ItemsControl.ItemTemplate></ItemsControl>
+         <TextBlock Text="{Binding Labels.PrepNote}" Style="{StaticResource Hint}"/>
+         <Expander Header="Evaluation settings" Margin="0,12,0,0" Visibility="{Binding ShowEvaluationSettings, Converter={StaticResource Visible}}"><Grid Margin="0,10,0,0"><Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition/></Grid.ColumnDefinitions><StackPanel Margin="0,0,12,0"><TextBlock Text="Compare with" Margin="0,0,0,5"/><ComboBox ItemsSource="{Binding ValidationOptions}" SelectedItem="{Binding Validation}" DisplayMemberPath="Name" IsEnabled="{Binding Idle}"/></StackPanel><StackPanel Grid.Column="1"><TextBlock Text="Evaluate the selected one with" Margin="0,0,0,5"/><ComboBox ItemsSource="{Binding SelectionOptions}" SelectedItem="{Binding Selection}" DisplayMemberPath="Name" IsEnabled="{Binding Idle}"/></StackPanel></Grid></Expander>
+         <Expander Header="Advanced options" Margin="0,12,0,0" Visibility="{Binding HasAdvancedOptions, Converter={StaticResource Visible}}">
+          <StackPanel Margin="0,10,0,0" IsEnabled="{Binding Idle}">
+           <TextBlock Text="Optional. The recommended settings are already chosen; change them only when your study needs it." Style="{StaticResource Hint}"/>
+           <ItemsControl ItemsSource="{Binding AdvancedChoices}"><ItemsControl.ItemsPanel><ItemsPanelTemplate><UniformGrid Columns="2"/></ItemsPanelTemplate></ItemsControl.ItemsPanel><ItemsControl.ItemTemplate><DataTemplate><StackPanel Margin="0,12,12,0"><TextBlock Text="{Binding Label}" Margin="0,0,0,5"/><ComboBox ItemsSource="{Binding Options}" SelectedItem="{Binding Selected}" DisplayMemberPath="Name"/><TextBlock Text="{Binding Hint}" Style="{StaticResource Hint}" Margin="0,4,0,0"/></StackPanel></DataTemplate></ItemsControl.ItemTemplate></ItemsControl>
+           <ItemsControl ItemsSource="{Binding AdvancedLists}"><ItemsControl.ItemTemplate><DataTemplate><StackPanel Margin="0,16,0,0"><TextBlock Text="{Binding Label}" FontWeight="SemiBold" Margin="0,0,0,6"/><ItemsControl ItemsSource="{Binding Items}"><ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel/></ItemsPanelTemplate></ItemsControl.ItemsPanel><ItemsControl.ItemTemplate><DataTemplate><CheckBox Width="285" IsChecked="{Binding IsChecked}" Margin="0,0,0,4"><TextBlock Text="{Binding Name}"/></CheckBox></DataTemplate></ItemsControl.ItemTemplate></ItemsControl><TextBlock Text="{Binding Hint}" Style="{StaticResource Hint}"/></StackPanel></DataTemplate></ItemsControl.ItemTemplate></ItemsControl>
+           <Button Content="Restore recommended settings" HorizontalAlignment="Left" Click="RestoreAdvanced_Click" Padding="10,5" Margin="0,14,0,0"/>
+          </StackPanel>
+         </Expander>
+        </StackPanel>
+       </Border>
+       <Border Style="{StaticResource Card}"><StackPanel><TextBlock Text="4  Save your results" Style="{StaticResource CardTitle}"/><DockPanel><Button Content="Choose folder…" DockPanel.Dock="Right" Click="Output_Click" IsEnabled="{Binding Idle}" Margin="0"/><TextBox Text="{Binding OutputRoot, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Idle}" Margin="0,0,10,0"/></DockPanel><CheckBox Content="Create figures and column-importance results" IsChecked="{Binding CreateFigures}" IsEnabled="{Binding Idle}" Margin="0,12,0,0"/><TextBlock Text="Each analysis gets its own folder. PDF reports require a LaTeX installation; the LaTeX source is always saved." Style="{StaticResource Hint}" Margin="0,8,0,0"/></StackPanel></Border>
+       <Border Style="{StaticResource Card}"><StackPanel><TextBlock Text="5  Check and run" Style="{StaticResource CardTitle}"/><TextBlock Text="{Binding PlanText}" LineHeight="21"/><TextBlock Text="When everything is right, press Run analysis below. You can cancel at any time; your data file is never changed." Style="{StaticResource Hint}" Margin="0,10,0,0"/></StackPanel></Border>
+      </StackPanel>
+     </ScrollViewer>
+    </TabItem>
+    <TabItem x:Name="ResultsTab" Header="Results" IsEnabled="{Binding HasResult}">
+     <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="0,16,8,0"><StackPanel>
+      <Border Style="{StaticResource Card}" Padding="22"><StackPanel><TextBlock Text="Final evaluation" FontSize="21" FontWeight="SemiBold"/><TextBlock Text="{Binding Result.SelectedModel}" Foreground="{StaticResource Accent}" FontSize="16" Margin="0,8,0,5"/><TextBlock Text="{Binding FinalExplanation}" Foreground="{StaticResource Muted}"/>
+       <ItemsControl ItemsSource="{Binding HeadlineTiles}" Margin="0,22,0,14"><ItemsControl.ItemsPanel><ItemsPanelTemplate><UniformGrid Columns="3"/></ItemsPanelTemplate></ItemsControl.ItemsPanel><ItemsControl.ItemTemplate><DataTemplate><StackPanel><TextBlock Text="{Binding Label}" Foreground="{StaticResource Muted}"/><TextBlock Text="{Binding Value}" FontSize="29" FontWeight="SemiBold"/></StackPanel></DataTemplate></ItemsControl.ItemTemplate></ItemsControl>
+       <TextBlock Text="{Binding SummaryText}" LineHeight="21" Margin="0,0,0,10"/>
+       <TextBlock Text="{Binding ResultNotes}" Style="{StaticResource Hint}"/>
+       <StackPanel Orientation="Horizontal" Margin="0,15,0,0"><Button Content="Open results folder" Click="OpenResults_Click"/><Button Content="Open report" Click="OpenReport_Click"/></StackPanel>
+      </StackPanel></Border>
+      <ItemsControl ItemsSource="{Binding ResultTables}"><ItemsControl.ItemTemplate><DataTemplate><StackPanel Margin="0,0,0,8"><TextBlock Text="{Binding Title}" FontSize="18" FontWeight="SemiBold" Margin="0,10,0,5"/><TextBlock Text="{Binding Hint}" Style="{StaticResource Hint}" Margin="0,0,0,10"/><DataGrid ItemsSource="{Binding View}" IsReadOnly="True" AutoGenerateColumns="True" AutoGeneratingColumn="Table_AutoGeneratingColumn" MaxHeight="320" MinHeight="80"/></StackPanel></DataTemplate></ItemsControl.ItemTemplate></ItemsControl>
+      <TextBlock Text="{Binding ComparisonTitle}" FontSize="18" FontWeight="SemiBold" Margin="0,10,0,5"/><TextBlock Text="{Binding ComparisonHint}" Style="{StaticResource Hint}" Margin="0,0,0,10"/>
+      <DataGrid ItemsSource="{Binding ComparisonTable}" Tag="stretch-first" IsReadOnly="True" AutoGenerateColumns="True" AutoGeneratingColumn="Table_AutoGeneratingColumn" RowHeight="34" MinHeight="80"/>
+      <StackPanel Visibility="{Binding HasFigures, Converter={StaticResource Visible}}">
+       <TextBlock Text="Figures" FontSize="18" FontWeight="SemiBold" Margin="0,22,0,5"/><TextBlock Text="Click a figure to open it full size. Every figure is also saved at 300 dpi in the figures folder." Style="{StaticResource Hint}" Margin="0,0,0,10"/>
+       <ItemsControl ItemsSource="{Binding Figures}"><ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel/></ItemsPanelTemplate></ItemsControl.ItemsPanel><ItemsControl.ItemTemplate><DataTemplate>
+        <Border Style="{StaticResource Card}" Width="400" Padding="14" Margin="0,0,14,14" Cursor="Hand" MouseLeftButtonUp="Figure_Click" ToolTip="Open full size">
+         <StackPanel><TextBlock Text="{Binding Title}" FontWeight="SemiBold" Margin="0,0,0,8"/><Image Source="{Binding Image}" Height="250" Stretch="Uniform"/><TextBlock Text="{Binding Caption}" Style="{StaticResource Hint}" Margin="0,8,0,0"/></StackPanel>
+        </Border>
+       </DataTemplate></ItemsControl.ItemTemplate></ItemsControl>
+      </StackPanel>
+      <TextBlock Text="Saved files" FontSize="18" FontWeight="SemiBold" Margin="0,12,0,10"/><ListBox x:Name="ArtifactsList" ItemsSource="{Binding Artifacts}" DisplayMemberPath="Name" MouseDoubleClick="Artifact_DoubleClick" MaxHeight="220" BorderBrush="#E1E8EC"/><TextBlock Text="Double-click a file to open it." Style="{StaticResource Hint}" Margin="0,6,0,10"/>
+     </StackPanel></ScrollViewer>
+    </TabItem>
+   </TabControl>
+   <Border Grid.Row="2" BorderBrush="#D6E0E5" BorderThickness="0,1,0,0" Padding="0,14,0,0" Margin="0,16,0,0">
+    <StackPanel><DockPanel><StackPanel Orientation="Horizontal" DockPanel.Dock="Right"><Button Background="{StaticResource Accent}" BorderThickness="0" IsEnabled="{Binding CanRun}" Click="Run_Click"><TextBlock Text="Run analysis" Foreground="White" FontWeight="SemiBold"/></Button><Button Content="Cancel" IsEnabled="{Binding Busy}" Click="Cancel_Click" Margin="0"/></StackPanel><StackPanel Margin="0,0,12,0"><DockPanel><TextBlock Text="{Binding ProgressText}" DockPanel.Dock="Right" FontWeight="SemiBold" Foreground="{StaticResource Accent}" Margin="12,0,0,0"/><TextBlock Text="{Binding Status}" FontWeight="SemiBold"/></DockPanel><ProgressBar IsIndeterminate="{Binding ProgressIndeterminate, Mode=OneWay}" Value="{Binding ProgressValue, Mode=OneWay}" Minimum="0" Maximum="100" Height="6" Margin="0,10,0,0" BorderThickness="0" Background="#E1E8EC" Foreground="{StaticResource Accent}"/></StackPanel></DockPanel>
+     <Expander Header="Activity log" Margin="0,10,0,0"><TextBox Text="{Binding ActivityLog, Mode=OneWay}" IsReadOnly="True" FontFamily="Consolas" FontSize="11" MaxHeight="160" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"/></Expander>
+    </StackPanel>
+   </Border>
+  </Grid>
+ </Grid>
+</Window>

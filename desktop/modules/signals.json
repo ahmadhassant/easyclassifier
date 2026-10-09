@@ -1,0 +1,10 @@
+{
+  "protocol_version": 1,
+  "id": "signals",
+  "title": "Signal classification",
+  "description": "Classify single-channel recordings, such as ECG heartbeats, EEG epochs or sensor windows, from a CSV, Excel or UCR archive file.",
+  "input_kind": "tabular",
+  "adapter": "adapters.signals:SignalsModule",
+  "package": "easyresearch",
+  "package_version": "0.1.0"
+}

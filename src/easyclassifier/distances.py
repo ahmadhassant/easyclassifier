@@ -23,12 +23,21 @@ from sklearn.base import BaseEstimator, ClassifierMixin
 from sklearn.neighbors import KNeighborsClassifier
 
 
+# The Hassanat distance is cited with the IEEE conference paper that reviews
+# its applications, and the arXiv preprint that introduced it.
 HASSANAT_CITATION = (
-    "Hassanat, A. B. (2014). Dimensionality Invariant Similarity Measure. "
-    "Journal of American Science, 10(8). arXiv:1409.0923."
+    "Hassanat, A. B., Alkafaween, E., Tarawneh, A. S., & Elmougy, S. (2022). "
+    "Applications review of Hassanat distance metric. In 2022 International "
+    "Conference on Emerging Trends in Computing and Engineering Applications "
+    "(ETCEA), Karak, Jordan (pp. 1-6). IEEE. "
+    "https://doi.org/10.1109/ETCEA57049.2022.10009844"
+)
+HASSANAT_ARXIV_CITATION = (
+    "Hassanat, A. B. (2014). Dimensionality invariant similarity measure. "
+    "arXiv preprint arXiv:1409.0923. https://arxiv.org/abs/1409.0923"
 )
 
-HASSANAT_CITATIONS: List[str] = [HASSANAT_CITATION]
+HASSANAT_CITATIONS: List[str] = [HASSANAT_CITATION, HASSANAT_ARXIV_CITATION]
 
 # key -> (menu label, sklearn metric name or None for custom)
 DISTANCES: Dict[str, tuple] = {

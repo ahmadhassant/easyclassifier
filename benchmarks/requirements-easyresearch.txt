@@ -1,0 +1,5 @@
+# Extra packages for easyresearch_benchmarks.py (datasets and reference implementations).
+# EasyClassifier and EasyResearch themselves are installed from this repository.
+pydataset==0.2.0
+aeon==1.6.0
+psutil

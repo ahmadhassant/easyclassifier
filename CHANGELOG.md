@@ -6,6 +6,25 @@ still change.
 
 ## Unreleased
 
+* Every method used is now cited, in the report's Methods paragraph, its
+  references and `citations.txt`: each classifier (decision tree, random
+  forest, SVM with Platt scaling, logistic regression, KNN, naive Bayes,
+  XGBoost, LightGBM, neural network with Adam), the KNN distance, the
+  cross-validation design, nested cross-validation or the separate final
+  test, balanced accuracy, MCC, Cohen's kappa, ROC AUC, ROC and
+  precision-recall curves, permutation importance and the software
+  (scikit-learn, NumPy, pandas, Matplotlib). The reference list is made from
+  the citations in the report, so it holds exactly what is cited, and
+  `citations.txt` says what each reference is cited for. The texts are in
+  `easyclassifier/references.py`.
+* When the signed form of the Hassanat formula is applied (negative
+  values), the report also cites the sign-symmetric reformulation (Alaydaa
+  et al., 2026, Symmetry 18(7), 1225).
+* `examples/iris` regenerated with the new citations (the results are
+  unchanged).
+* The Hassanat distance is cited with the IEEE ETCEA 2022 paper and the
+  arXiv preprint; the software citation includes the Zenodo DOI, as in
+  `CITATION.cff`.
 * The measure reported as "Specificity" is now named "Macro specificity",
   and its explanation is corrected: it is the one-versus-rest specificity
   averaged over all classes (with two classes it equals balanced

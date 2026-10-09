@@ -1,0 +1,10 @@
+**/bin/
+**/obj/
+.vs/
+.venv/
+runtime/
+release/
+**/__pycache__/
+test-results/
+*.user
+*.suo

@@ -1,0 +1,60 @@
+<Application x:Class="EasyResearch.Desktop.App"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+ <Application.Resources>
+  <SolidColorBrush x:Key="Ink" Color="#172B3A"/>
+  <SolidColorBrush x:Key="Muted" Color="#60717F"/>
+  <SolidColorBrush x:Key="Accent" Color="#146B75"/>
+  <SolidColorBrush x:Key="Canvas" Color="#F3F6F8"/>
+  <SolidColorBrush x:Key="Line" Color="#E1E8EC"/>
+  <Style TargetType="TextBlock"><Setter Property="Foreground" Value="{StaticResource Ink}"/><Setter Property="TextWrapping" Value="Wrap"/></Style>
+  <Style TargetType="Button">
+   <Setter Property="Padding" Value="15,9"/><Setter Property="Margin" Value="0,0,8,0"/><Setter Property="Background" Value="White"/><Setter Property="Foreground" Value="{StaticResource Ink}"/>
+   <Setter Property="BorderBrush" Value="#D3DEE4"/><Setter Property="BorderThickness" Value="1"/><Setter Property="Cursor" Value="Hand"/>
+   <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="Button"><Border x:Name="Border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5" Padding="{TemplateBinding Padding}"><ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/></Border><ControlTemplate.Triggers><Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Border" Property="Opacity" Value="0.8"/></Trigger><Trigger Property="IsEnabled" Value="False"><Setter TargetName="Border" Property="Opacity" Value="0.45"/></Trigger></ControlTemplate.Triggers></ControlTemplate></Setter.Value></Setter>
+  </Style>
+  <Style TargetType="TextBox"><Setter Property="Padding" Value="10,8"/><Setter Property="BorderBrush" Value="#CAD6DF"/><Setter Property="VerticalContentAlignment" Value="Center"/></Style>
+  <Style TargetType="ComboBox"><Setter Property="Padding" Value="8,7"/><Setter Property="MinHeight" Value="36"/><Setter Property="VerticalContentAlignment" Value="Center"/></Style>
+  <Style TargetType="CheckBox"><Setter Property="Margin" Value="0,0,0,12"/><Setter Property="VerticalContentAlignment" Value="Center"/></Style>
+
+  <!-- Underlined tabs. The header text binds its colour to the tab, because the implicit
+       TextBlock style above would otherwise fix every header to the same colour. -->
+  <Style TargetType="TabItem">
+   <Setter Property="Foreground" Value="{StaticResource Muted}"/>
+   <Setter Property="FontSize" Value="15"/>
+   <Setter Property="HeaderTemplate"><Setter.Value><DataTemplate>
+    <TextBlock Text="{Binding}" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=TabItem}}" FontWeight="{Binding FontWeight, RelativeSource={RelativeSource AncestorType=TabItem}}"/>
+   </DataTemplate></Setter.Value></Setter>
+   <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="TabItem">
+    <Border x:Name="Bd" Background="Transparent" BorderBrush="Transparent" BorderThickness="0,0,0,3" Padding="2,4,2,7" Margin="0,0,26,0" Cursor="Hand">
+     <ContentPresenter ContentSource="Header" RecognizesAccessKey="True"/>
+    </Border>
+    <ControlTemplate.Triggers>
+     <Trigger Property="IsMouseOver" Value="True"><Setter Property="Foreground" Value="{StaticResource Ink}"/></Trigger>
+     <Trigger Property="IsSelected" Value="True"><Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource Accent}"/><Setter Property="Foreground" Value="{StaticResource Ink}"/><Setter Property="FontWeight" Value="SemiBold"/></Trigger>
+     <Trigger Property="IsEnabled" Value="False"><Setter TargetName="Bd" Property="Opacity" Value="0.4"/><Setter TargetName="Bd" Property="Cursor" Value="Arrow"/></Trigger>
+    </ControlTemplate.Triggers>
+   </ControlTemplate></Setter.Value></Setter>
+  </Style>
+
+  <!-- Light, readable tables -->
+  <Style TargetType="DataGrid">
+   <Setter Property="Background" Value="White"/><Setter Property="RowBackground" Value="White"/>
+   <Setter Property="BorderBrush" Value="{StaticResource Line}"/><Setter Property="BorderThickness" Value="1"/>
+   <Setter Property="GridLinesVisibility" Value="Horizontal"/><Setter Property="HorizontalGridLinesBrush" Value="#EDF1F4"/>
+   <Setter Property="HeadersVisibility" Value="Column"/><Setter Property="CanUserAddRows" Value="False"/><Setter Property="CanUserResizeRows" Value="False"/>
+   <Setter Property="SelectionUnit" Value="FullRow"/><Setter Property="MinRowHeight" Value="30"/>
+  </Style>
+  <Style TargetType="DataGridColumnHeader">
+   <Setter Property="Background" Value="#F3F6F8"/><Setter Property="Foreground" Value="{StaticResource Muted}"/><Setter Property="FontWeight" Value="SemiBold"/>
+   <Setter Property="Padding" Value="9,8"/><Setter Property="BorderBrush" Value="{StaticResource Line}"/><Setter Property="BorderThickness" Value="0,0,0,1"/>
+  </Style>
+  <Style TargetType="DataGridCell">
+   <Setter Property="BorderThickness" Value="0"/>
+   <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="DataGridCell">
+    <Border Background="{TemplateBinding Background}" Padding="9,0"><ContentPresenter VerticalAlignment="Center"/></Border>
+   </ControlTemplate></Setter.Value></Setter>
+   <Style.Triggers><Trigger Property="IsSelected" Value="True"><Setter Property="Background" Value="#E3F0F1"/><Setter Property="Foreground" Value="{StaticResource Ink}"/></Trigger></Style.Triggers>
+  </Style>
+ </Application.Resources>
+</Application>

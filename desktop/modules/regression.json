@@ -1,0 +1,10 @@
+{
+  "protocol_version": 1,
+  "id": "regression",
+  "title": "Regression",
+  "description": "Predict a number, such as a price, a test result or a yield, from a CSV or Excel spreadsheet.",
+  "input_kind": "tabular",
+  "adapter": "adapters.regression:RegressionModule",
+  "package": "easyresearch",
+  "package_version": "0.1.0"
+}
