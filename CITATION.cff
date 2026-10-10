@@ -6,9 +6,9 @@ authors:
   - family-names: Hassanat
     given-names: Ahmad B. A.
     email: ahmad.hassanat@gmail.com
-version: 0.8.1
-doi: 10.5281/zenodo.23122902
-date-released: 2026-09-28
+version: 0.8.2
+doi: 10.5281/zenodo.23122901
+date-released: 2026-10-11
 license: MIT
 repository-code: "https://github.com/ahmadhassant/easyclassifier"
 url: "https://github.com/ahmadhassant/easyclassifier"
@@ -28,15 +28,35 @@ keywords:
   - k-nearest neighbours
   - Hassanat distance
 references:
+  - type: conference-paper
+    title: "Applications Review of Hassanat Distance Metric"
+    authors:
+      - family-names: Hassanat
+        given-names: Ahmad B.
+      - family-names: Alkafaween
+        given-names: E.
+      - family-names: Tarawneh
+        given-names: Ahmad S.
+      - family-names: Elmougy
+        given-names: S.
+    collection-title: "2022 International Conference on Emerging Trends in Computing and Engineering Applications (ETCEA)"
+    publisher:
+      name: IEEE
+    conference:
+      name: "International Conference on Emerging Trends in Computing and Engineering Applications (ETCEA)"
+      city: Karak
+      country: JO
+    start: 1
+    end: 6
+    year: 2022
+    doi: 10.1109/ETCEA57049.2022.10009844
   - type: article
     title: "Dimensionality Invariant Similarity Measure"
     authors:
       - family-names: Hassanat
         given-names: Ahmad B.
-    journal: "Journal of American Science"
-    volume: 10
-    issue: 8
     year: 2014
     identifiers:
       - type: other
         value: "arXiv:1409.0923"
+    url: "https://arxiv.org/abs/1409.0923"

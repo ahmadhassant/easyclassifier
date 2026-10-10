@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "easyclassifier"
-version = "0.8.1"
+version = "0.8.2"
 description = "Machine learning classification without programming - a guided, menu-driven wizard."
 readme = "README.md"
 requires-python = ">=3.10"

@@ -4,7 +4,7 @@
 [![PyPI](https://img.shields.io/pypi/v/easyclassifier.svg)](https://pypi.org/project/easyclassifier/)
 [![Python](https://img.shields.io/badge/python-3.10%E2%80%933.14-blue.svg)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/ahmadhassant/easyclassifier/blob/main/LICENSE)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23122902.svg)](https://doi.org/10.5281/zenodo.23122902)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23122901.svg)](https://doi.org/10.5281/zenodo.23122901)
 
 **Machine Learning without Programming.**
 
@@ -12,6 +12,11 @@ EasyClassifier is a guided, menu-driven assistant that lets anyone build and
 evaluate machine learning classification models from a CSV or Excel file —
 no Python code, no scripting, and no machine learning jargon required
 (unless you want it).
+
+Regression, time-series forecasting, signal classification and a Windows
+desktop application that runs all four tasks are in
+[EasyResearch](https://github.com/ahmadhassant/easyresearch), which is built
+on EasyClassifier and follows the same rules.
 
 **New to Python or the terminal? Read the step-by-step
 [User Guide](https://github.com/ahmadhassant/easyclassifier/blob/main/docs/USER_GUIDE.md).** It covers installing Python, installing
@@ -187,8 +192,14 @@ The report says whether the normal form (all values >= 0) or the signed form
 (negative values present) of the formula was applied, and the citation is
 shown on screen and saved to `citations.txt`:
 
-> Hassanat, A. B. (2014). Dimensionality Invariant Similarity Measure.
-> Journal of American Science, 10(8). arXiv:1409.0923.
+> Hassanat, A. B., Alkafaween, E., Tarawneh, A. S., & Elmougy, S. (2022).
+> Applications review of Hassanat distance metric. In *2022 International
+> Conference on Emerging Trends in Computing and Engineering Applications
+> (ETCEA)*, Karak, Jordan (pp. 1–6). IEEE.
+> https://doi.org/10.1109/ETCEA57049.2022.10009844
+>
+> Hassanat, A. B. (2014). Dimensionality invariant similarity measure.
+> arXiv preprint arXiv:1409.0923. https://arxiv.org/abs/1409.0923
 
 ## Benchmarks
 

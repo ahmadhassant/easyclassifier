@@ -25,15 +25,14 @@ from typing import Dict, List, Optional, Tuple
 
 import pandas as pd
 
-from .distances import HASSANAT_CITATION
+from . import references as refs
 from .evaluation import METRICS, SELECTION_LABEL, VALIDATION
 from .help_texts import explain
+from .references import cite
 
-SKLEARN_CITATION = ("Pedregosa, F., et al. (2011). Scikit-learn: Machine "
-                    "Learning in Python. Journal of Machine Learning "
-                    "Research, 12, 2825-2830.")
-BREIMAN_CITATION = ("Breiman, L. (2001). Random Forests. Machine Learning, "
-                    "45, 5-32.")
+# Kept for the EasyResearch cores, which import them from here.
+SKLEARN_CITATION = refs.REFERENCES["sklearn"]
+BREIMAN_CITATION = refs.REFERENCES["breiman2001"]
 
 PERCENT_METRICS = {"accuracy", "precision", "recall", "f1",
                    "balanced_accuracy", "specificity"}
@@ -76,6 +75,11 @@ class ReportContext:
     importance: Optional[pd.DataFrame] = None
     comparison_text: str = ""
     learning_text: str = ""
+    # Registry keys of the classifiers (same order as ``classifiers``) and the
+    # KNN distance, so that each method is cited.
+    classifier_keys: List[str] = field(default_factory=list)
+    knn_distance: Optional[str] = None
+    hassanat_signed: bool = False   # signed form applied (negative values)
 
 
 # --------------------------------------------------------------------------- #
@@ -195,7 +199,8 @@ def _methods_paragraph(c: ReportContext) -> str:
     parts = [
         f"Classification was carried out with EasyClassifier version "
         f"{tex(c.version)} \\cite{{easyclassifier}}, which is built on "
-        f"scikit-learn \\cite{{sklearn}}.",
+        f"scikit-learn \\cite{{sklearn}}, NumPy \\cite{{numpy}} and pandas "
+        f"\\cite{{pandas}}.",
         f"The dataset ({tex(c.dataset)}) contained {c.rows_loaded} rows and "
         f"{c.cols_loaded} columns. The outcome to predict was "
         f"\\emph{{{tex(c.target)}}} with {k} classes.",
@@ -243,14 +248,23 @@ def _methods_paragraph(c: ReportContext) -> str:
                      "separately within every validation split, so that no "
                      "information from test data entered model training.")
 
+    if len(c.classifier_keys) == len(c.classifiers):
+        named = [tex(n) + cite(refs.CLASSIFIER_REFERENCES.get(k, []))
+                 for n, k in zip(c.classifiers, c.classifier_keys)]
+    else:
+        named = [tex(n) for n in c.classifiers]
     parts.append(
         "The following classifiers were used with their default parameters, "
-        "without hyperparameter tuning: " + tex(_join(c.classifiers)) + ".")
+        "without hyperparameter tuning: " + _join(named) + ".")
     if c.knn_text:
-        cite = " \\cite{hassanat2014}" if c.hassanat_used else ""
-        parts.append(tex(c.knn_text) + cite + ".")
+        keys = refs.DISTANCE_REFERENCES.get(c.knn_distance or "", [])
+        if c.hassanat_used:
+            keys = refs.DISTANCE_REFERENCES["hassanat"] + (
+                refs.HASSANAT_SIGNED_REFERENCES if c.hassanat_signed else [])
+        parts.append(tex(c.knn_text) + cite(keys) + ".")
     parts.append(f"Performance was estimated with "
-                 f"{tex(VALIDATION[c.validation].lower())}.")
+                 f"{tex(VALIDATION[c.validation].lower())}"
+                 f"{cite(refs.VALIDATION_REFERENCES.get(c.validation, []))}.")
 
     if c.final is not None and c.selection == "final_test":
         parts.append(
@@ -259,7 +273,8 @@ def _methods_paragraph(c: ReportContext) -> str:
             f"{c.n_test} rows (20\\%, stratified by class) were set aside "
             f"before any analysis; classifiers were compared on the "
             f"remaining {c.n_dev} rows only, and the selected classifier was "
-            f"evaluated once on the untouched test rows.")
+            f"evaluated once on the untouched test rows"
+            f"{cite(refs.SELECTION_REFERENCES['final_test'])}.")
     elif c.final is not None and c.selection == "nested":
         parts.append(
             f"The classifier with the highest {SELECTION_LABEL.lower()} was "
@@ -267,7 +282,7 @@ def _methods_paragraph(c: ReportContext) -> str:
             f"performance was estimated with nested 5-fold cross-validation, "
             f"in which the complete comparison was repeated within each "
             f"outer training fold and the winner was evaluated on the outer "
-            f"test fold.")
+            f"test fold{cite(refs.SELECTION_REFERENCES['nested'])}.")
     if c.importance is not None:
         parts.append(
             "The contribution of each predictor was estimated by permutation "
@@ -275,6 +290,21 @@ def _methods_paragraph(c: ReportContext) -> str:
             f"{SELECTION_LABEL.lower()} when that column's values were "
             "randomly shuffled, measured on the "
             f"{tex(c.importance.attrs.get('measured_on', 'held-out rows'))}.")
+    measures = [tex(METRICS[m]) + cite(refs.METRIC_REFERENCES.get(m, []))
+                for m in c.metrics if m in METRICS]
+    parts.append(
+        f"Classifiers were ranked by {SELECTION_LABEL.lower()}"
+        f"{cite(refs.METRIC_REFERENCES['balanced_accuracy'])}"
+        + (f"; the measures reported were {_join(measures)}" if measures
+           else "") + ".")
+    if c.figures:
+        curves = [f"{label}{cite(refs.FIGURE_REFERENCES[k])}"
+                  for k, label in (("roc_curve", "ROC curves"),
+                                   ("pr_curve", "precision-recall curves"))
+                  if k in c.figures]
+        parts.append("Figures were drawn with Matplotlib \\cite{matplotlib}"
+                     + (", including " + _join(curves) if curves else "")
+                     + ".")
     return " ".join(parts)
 
 
@@ -471,16 +501,15 @@ def build_tex(c: ReportContext) -> str:
              "\\texttt{log.txt} in the Results folder.\n"
              "\\end{itemize}\n")
 
-    # 6. References --------------------------------------------------------- #
-    L.append("\\begin{thebibliography}{9}\n")
-    L.append(f"\\bibitem{{easyclassifier}} {tex(c.software_citation)}\n")
-    L.append(f"\\bibitem{{sklearn}} {tex(SKLEARN_CITATION)}\n")
-    if c.hassanat_used:
-        L.append(f"\\bibitem{{hassanat2014}} {tex(HASSANAT_CITATION)}\n")
-    if c.importance is not None:
-        L.append(f"\\bibitem{{breiman2001}} {tex(BREIMAN_CITATION)}\n")
-    L.append("\\end{thebibliography}\n\\end{document}\n")
-    return "".join(L)
+    # 6. References: every reference cited above, in order of citation ----- #
+    body = "".join(L)
+    return (body + refs.bibliography(body, report_entries(c), escape=tex)
+            + "\\end{document}\n")
+
+
+def report_entries(c: ReportContext) -> Dict[str, str]:
+    """Report-specific bibliography entries (the software itself)."""
+    return {"easyclassifier": c.software_citation}
 
 
 # --------------------------------------------------------------------------- #

@@ -108,3 +108,24 @@ def test_report_compiles_to_pdf(tmp_path):
     assert pdf_path is not None, msg
     assert (tmp_path / "report.pdf").stat().st_size > 10_000
     assert not (tmp_path / "report.aux").exists()      # cleaned up
+
+
+def test_specificity_is_macro_average():
+    """Reported specificity is one-versus-rest specificity averaged over
+    classes; with two classes it equals balanced accuracy."""
+    import numpy as np
+    from sklearn.metrics import balanced_accuracy_score
+    from easyclassifier.evaluation import METRICS, _specificity
+    from easyclassifier.help_texts import GLOSSARY
+
+    y_true = np.array([0, 0, 0, 0, 1, 1, 1, 1, 1, 1])
+    y_pred = np.array([0, 0, 1, 1, 1, 1, 1, 1, 1, 0])
+    assert np.isclose(_specificity(y_true, y_pred, [0, 1]),
+                      balanced_accuracy_score(y_true, y_pred))
+
+    y3 = np.array([0, 0, 1, 1, 2, 2])
+    p3 = np.array([0, 1, 1, 1, 2, 0])
+    # one-vs-rest specificities: class 0: 3/4, class 1: 3/4, class 2: 4/4
+    assert np.isclose(_specificity(y3, p3, [0, 1, 2]), (0.75 + 0.75 + 1) / 3)
+    assert METRICS["specificity"] == "Macro specificity"
+    assert "averaged over all classes" in GLOSSARY["specificity"]

@@ -29,7 +29,9 @@ from .diagnostics import (
     learning_curve_data,
 )
 from .importance import honest_importance
-from .latex_report import ReportContext, write_and_compile
+from .latex_report import (ReportContext, build_tex, report_entries,
+                           write_and_compile)
+from .references import citation_lines
 from .help_texts import explain
 from .logbook import LogBook
 from .models import build_registry
@@ -1076,14 +1078,22 @@ class Wizard:
         saved.append(rep.save_model(
             model, os.path.join(out_dir, "trained_model.pkl")))
 
+        # citations.txt lists exactly the references cited in the report.
+        try:
+            ctx = self._report_context(best, results, final, X, y,
+                                       fig_files, importance)
+        except Exception as exc:  # noqa: BLE001
+            ctx = None
+            self.log.add(f"Report context FAILED: {exc}")
         saved.append(self.save_citations(os.path.join(out_dir,
-                                                      "citations.txt")))
+                                                      "citations.txt"), ctx))
 
         # Report: report.tex, compiled to report.pdf if LaTeX is installed.
         ui.info("Writing the report ...")
         try:
-            ctx = self._report_context(best, results, final, X, y,
-                                       fig_files, importance)
+            if ctx is None:
+                raise RuntimeError("the report information could not be "
+                                   "collected (see the log)")
             tex_path, pdf_path, msg = write_and_compile(ctx, out_dir)
             saved.append(tex_path)
             if pdf_path:
@@ -1212,6 +1222,10 @@ class Wizard:
             comparison_text=self.comparison_text,
             learning_text=self.learning_text,
             importance=importance,
+            classifier_keys=list(self._classifiers),
+            knn_distance=self.knn_distance,
+            hassanat_signed=bool(self.hassanat_form
+                                 and self.hassanat_form["form"] == "signed"),
         )
 
     def _pipeline_spec(self, key: str, X):
@@ -1223,13 +1237,20 @@ class Wizard:
             factory=lambda: pp.build_pipeline(X, cfg, spec.factory(), scale),
         )
 
-    def save_citations(self, path: str) -> str:
-        lines = ["Please cite the following if you publish these results:",
-                 "", "Software:", "  " + CITATION]
+    def save_citations(self, path: str, ctx=None) -> str:
+        if ctx is not None:
+            lines = citation_lines(build_tex(ctx), report_entries(ctx),
+                                   {"easyclassifier": "EasyClassifier "
+                                                      "(this software)"})
+        else:
+            lines = ["Please cite the following if you publish these "
+                     "results:", "", "Software:", "  " + CITATION]
         if self.hassanat_form:
-            lines += ["", "Hassanat distance (used by KNN):"]
-            lines += ["  " + c for c in HASSANAT_CITATIONS]
-            lines += ["", "Formula form applied: " + self.hassanat_form["text"]]
+            if ctx is None:
+                lines += ["", "Hassanat distance (used by KNN):"]
+                lines += ["  " + c for c in HASSANAT_CITATIONS]
+            lines += ["", "Hassanat distance, formula form applied: "
+                      + self.hassanat_form["text"]]
         with open(path, "w", encoding="utf-8") as fh:
             fh.write("\n".join(lines) + "\n")
         return path

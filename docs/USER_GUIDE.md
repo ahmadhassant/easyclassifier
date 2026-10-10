@@ -151,7 +151,7 @@ From now on, start EasyClassifier with:
 You should see something like:
 
 ```
-EasyClassifier 0.8.1 (Python 3.13.2)
+EasyClassifier 0.8.2 (Python 3.13.2)
 ```
 
 Installation downloads EasyClassifier and the scientific libraries it uses
@@ -437,10 +437,19 @@ Your `Results` folders are never deleted by updating or uninstalling.
 
 If you publish results obtained with EasyClassifier, please cite it. The
 exact references for your analysis are in `citations.txt` and at the end of
-`report.pdf`. They include the software, scikit-learn, and – when K-nearest
-neighbours with the Hassanat distance was used –
+`report.pdf`. They include the software, scikit-learn, NumPy, pandas and
+Matplotlib, a reference for every method that was used (each classifier, the
+KNN distance, the validation design, the measures and curves that need a
+source), and – when K-nearest neighbours with the Hassanat distance was
+used –
 
-> Hassanat, A. B. (2014). Dimensionality Invariant Similarity Measure.
-> *Journal of American Science*, 10(8). arXiv:1409.0923.
+> Hassanat, A. B., Alkafaween, E., Tarawneh, A. S., & Elmougy, S. (2022).
+> Applications review of Hassanat distance metric. In *2022 International
+> Conference on Emerging Trends in Computing and Engineering Applications
+> (ETCEA)*, Karak, Jordan (pp. 1–6). IEEE.
+> https://doi.org/10.1109/ETCEA57049.2022.10009844
+>
+> Hassanat, A. B. (2014). Dimensionality invariant similarity measure.
+> arXiv preprint arXiv:1409.0923. https://arxiv.org/abs/1409.0923
 
-To cite the software itself: Hassanat, A. B. A. (2026). EasyClassifier (version 0.8.1). Zenodo. https://doi.org/10.5281/zenodo.23122902
+To cite the software itself: Hassanat, A. B. A. (2026). EasyClassifier (version 0.8.2). Zenodo. https://doi.org/10.5281/zenodo.23122901
